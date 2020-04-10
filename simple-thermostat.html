@@ -1,0 +1,67 @@
+<script type="text/javascript">
+    RED.nodes.registerType('simple thermostat',{
+        category: 'function',
+        color: '#3FADB5',
+        defaults: {
+            name: {value:""},
+            target: {value:""},
+            ifAbove: {value:"OFF"},
+            ifBelow: {value:"ON"},
+            equal: {value:""},
+            default: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "simple-thermostat.png",
+        label: function() {
+            if (this.name) {
+                return this.name
+            } else if (this.target && this.ifBelow && this.ifAbove) {
+                return `${this.ifBelow} if below ${this.target}, ${this.ifAbove} if above`
+            } else {
+                return "Simple thermostat";
+            }
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="simple thermostat">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+    <br><b>Settings:</b><br>
+    </div>
+    <div class="form-row">
+        <label for="node-input-target">Target</label>
+        <input type="number" step="0.01" id="node-input-target"><br>
+        Target can be overridden using msg.target<br>
+    </div>
+    msg.payload should contain either a number<br>or the result of an InfluxDB query, for example:<br>SELECT MEAN(value) FROM "My meaurement" WHERE time > now() - 2m
+    <div class="form-row">
+    <br><b>Output:</b><br>
+    </div>
+    Leave blank to return nothing<br>
+    <div class="form-row">
+        <label for="node-input-ifAbove">If above target</label>
+        <input type="text" id="node-input-ifAbove"><br>
+    </div>
+    <div class="form-row">
+        <label for="node-input-ifBelow">If below target</label>
+        <input type="text" id="node-input-ifBelow"><br>
+    </div>
+    <div class="form-row">
+        <label for="node-input-equal">If equal to target</label>
+        <input type="text" id="node-input-equal"><br>
+    </div>
+    <div class="form-row">
+        <label for="node-input-default">Otherwise</label>
+        <input type="text" id="node-input-default"><br>
+        If msg.payload is unset, or cannot be parsed<br>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="simple thermostat">
+    <p>simple thermostat</p>
+</script>
