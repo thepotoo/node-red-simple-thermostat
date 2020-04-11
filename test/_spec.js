@@ -18,7 +18,7 @@ describe('simple thermostat Node', function () {
     });
   });
 
-  it('should return off if greater than msg.payload', function (done) {
+  it('should return off if greater than msg.payload and return the original payload as msg.currentValue', function (done) {
     var flow = [
         { id: "n1", type: "simple thermostat", name: "turn off if above 5", ifAbove: "off", target: 5, wires:[["n2"]] },
         { id: "n2", type: "helper" }
@@ -28,6 +28,7 @@ describe('simple thermostat Node', function () {
         var n1 = helper.getNode("n1");
         n2.on("input", function (msg) {
           msg.should.have.property('payload', 'off');
+          msg.should.have.property('currentValue', 6);
           done();
         });
         n1.receive({ payload: 6 });
@@ -50,7 +51,7 @@ describe('simple thermostat Node', function () {
     });
   });
 
-  it('should allow use of influxdb mean format output', function (done) {
+  it('should allow use of influxdb mean format output and return currentValue', function (done) {
     var flow = [
         { id: "n1", type: "simple thermostat", name: "turn off if above 5", ifAbove: "off", target: 5, wires:[["n2"]] },
         { id: "n2", type: "helper" }
@@ -60,6 +61,7 @@ describe('simple thermostat Node', function () {
         var n1 = helper.getNode("n1");
         n2.on("input", function (msg) {
           msg.should.have.property('payload', 'off');
+          msg.should.have.property('currentValue', 6);
           done();
         });
         n1.receive({ payload: [{'mean': 6}]});

@@ -1,13 +1,13 @@
 {
   "name": "node-red-contrib-simple-thermostat",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A node that compares msg.payload to a target value and returns a new msg.payload such as 'off' or 'on'.  Supports the result of InfluxDB queries such as `SELECT MEAN(value) FROM \"My meaurement\" WHERE time > now() - 2m`",
   "main": "simple-thermostat.js",
   "scripts": {
     "test": "mocha \"test/**/*_spec.js\""
   },
   "keywords": [
-    "thermostat"
+    "thermostat", "node-red"
   ],
   "node-red": {
     "nodes": {
@@ -20,5 +20,9 @@
     "node-red": "^1.0.5",
     "node-red-node-test-helper": "^0.2.3",
     "mocha": "^7.1.1"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/thepotoo/node-red-simple-thermostat"
   }
 }

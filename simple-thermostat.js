@@ -47,13 +47,13 @@ module.exports = function(RED) {
                 }
                 if (isValid) {
                     if (currentValue > target) {
-                        node.status({fill:"green",shape:"dot",text: `${currentValue.toFixed(2)} greater than ${target}`});
+                        node.status({text: `${currentValue.toFixed(2)} below ${target}`});
                         msg.payload = node.ifAbove;
                     } else if (currentValue < target){
-                        node.status({fill:"red",shape:"dot",text: `${currentValue.toFixed(2)} less than ${target}`});
+                        node.status({text: `${currentValue.toFixed(2)} above ${target}`});
                         msg.payload = node.ifBelow;
-                    } else if (currentValue === target) {
-                        node.status({fill:"gray",shape:"dot",text: `Payload equal to ${target}`});
+                    } else if (currentValue == target) {
+                        node.status({text: `Payload equal to ${target}`});
                         msg.payload = node.equal;
                     } else {
                         msg.payload = node.default;
@@ -64,6 +64,7 @@ module.exports = function(RED) {
                 }
                 // "" means return nothing
                 if (msg.payload !== "") {
+                    msg.currentValue = currentValue;
                     node.send(msg)
                 }
             } catch (err) {
