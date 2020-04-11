@@ -47,10 +47,10 @@ module.exports = function(RED) {
                 }
                 if (isValid) {
                     if (currentValue > target) {
-                        node.status({text: `${currentValue.toFixed(2)} below ${target}`});
+                        node.status({text: `${currentValue.toFixed(2)} above ${target}`});
                         msg.payload = node.ifAbove;
                     } else if (currentValue < target){
-                        node.status({text: `${currentValue.toFixed(2)} above ${target}`});
+                        node.status({text: `${currentValue.toFixed(2)} below ${target}`});
                         msg.payload = node.ifBelow;
                     } else if (currentValue == target) {
                         node.status({text: `Payload equal to ${target}`});

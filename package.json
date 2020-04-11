@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-simple-thermostat",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A node that compares msg.payload to a target value and returns a new msg.payload such as 'off' or 'on'.  Supports the result of InfluxDB queries such as `SELECT MEAN(value) FROM \"My meaurement\" WHERE time > now() - 2m`",
   "main": "simple-thermostat.js",
   "scripts": {
